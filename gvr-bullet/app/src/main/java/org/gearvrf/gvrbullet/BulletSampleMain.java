@@ -321,6 +321,8 @@ public class BulletSampleMain extends GVRMain {
                     sphereObjectFake.getTransform().getPositionY(),
                     sphereObjectFake.getTransform().getPositionZ(), SPHERE_MASS);
 
+        }
+
         if (cameraDisplayed) {
             mCameraObject.getRenderData().getMaterial().setOpacity( 0.0f );
             cameraDisplayed = false;
