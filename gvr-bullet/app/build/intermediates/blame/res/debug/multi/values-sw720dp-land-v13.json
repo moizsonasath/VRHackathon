@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\res\\merged\\debug\\values-sw720dp-land-v13\\values-sw720dp-land-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 58,
+                    "endOffset": 109
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values-sw720dp-land-v13\\values-sw720dp-land-v13.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 58,
+                        "endOffset": 109
+                    }
+                }
+            }
+        ]
+    }
+]

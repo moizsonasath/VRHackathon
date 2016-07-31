@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="framework-debug-">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-debug/jars/libs/jnlua-android.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-debug/jars/libs/js.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-debug/jars/libs/jsr223.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-debug/jars/libs/SystemUtils.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-debug/jars/libs/jline-android.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-debug/jars/libs/VrApi.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-debug/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-debug/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-debug/jars/libs/gson-2.2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../GearVRf/GVRf/Framework/framework/src/main/backends/oculus" />
+      <root url="file://$PROJECT_DIR$/../../../GearVRf/GVRf/Framework/framework/src/main/java" />
+    </SOURCES>
+  </library>
+</component>

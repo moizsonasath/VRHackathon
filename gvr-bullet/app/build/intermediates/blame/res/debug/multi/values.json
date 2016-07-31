@@ -1,0 +1,277 @@
+[
+    {
+        "outputFile": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\res\\merged\\debug\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 57,
+                    "endOffset": 108
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 57,
+                        "endOffset": 108
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 113,
+                    "endColumn": 55,
+                    "endOffset": 164
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 113,
+                        "endColumn": 55,
+                        "endOffset": 164
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 169,
+                    "endColumn": 52,
+                    "endOffset": 217
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 169,
+                        "endColumn": 52,
+                        "endOffset": 217
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 222,
+                    "endColumn": 54,
+                    "endOffset": 272
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 19,
+                        "endColumn": 54,
+                        "endOffset": 69
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 277,
+                    "endColumn": 59,
+                    "endOffset": 332
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 271,
+                        "endColumn": 59,
+                        "endOffset": 326
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 337,
+                    "endColumn": 52,
+                    "endOffset": 385
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 331,
+                        "endColumn": 52,
+                        "endOffset": 379
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 390,
+                    "endColumn": 56,
+                    "endOffset": 442
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 384,
+                        "endColumn": 56,
+                        "endOffset": 436
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 447,
+                    "endColumn": 47,
+                    "endOffset": 490
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 441,
+                        "endColumn": 47,
+                        "endOffset": 484
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 495,
+                    "endColumn": 51,
+                    "endOffset": 542
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 489,
+                        "endColumn": 51,
+                        "endOffset": 536
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 547,
+                    "endColumn": 47,
+                    "endOffset": 590
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 541,
+                        "endColumn": 47,
+                        "endOffset": 584
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 595,
+                    "endColumn": 43,
+                    "endOffset": 634
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 589,
+                        "endColumn": 43,
+                        "endOffset": 628
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 639,
+                    "endColumn": 45,
+                    "endOffset": 680
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\build\\intermediates\\exploded-aar\\framework-debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 633,
+                        "endColumn": 45,
+                        "endOffset": 674
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 685,
+                    "endLine": 20,
+                    "endColumn": 12,
+                    "endOffset": 971
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 192,
+                        "endLine": 12,
+                        "endColumn": 12,
+                        "endOffset": 484
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 976,
+                    "endLine": 23,
+                    "endColumn": 12,
+                    "endOffset": 1131
+                },
+                "from": {
+                    "file": "C:\\Users\\m.sonasath\\Desktop\\Moiz_All_Data\\Moiz\\gvrf\\sample_apps\\GearVRf-Demos\\gvr-bullet\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 525,
+                        "endLine": 17,
+                        "endColumn": 12,
+                        "endOffset": 682
+                    }
+                }
+            }
+        ]
+    }
+]
