@@ -31,7 +31,6 @@ import org.siprop.bullet.MotionState;
 import org.siprop.bullet.PhysicsWorld;
 import org.siprop.bullet.RigidBody;
 import org.siprop.bullet.Transform;
-import org.siprop.bullet.shape.BoxShape;
 import org.siprop.bullet.shape.CylinderShape;
 import org.siprop.bullet.shape.SphereShape;
 import org.siprop.bullet.shape.StaticPlaneShape;
@@ -42,7 +41,6 @@ import org.siprop.bullet.util.Vector3;
 import android.graphics.Color;
 import android.view.Gravity;
 
-import static android.graphics.Color.WHITE;
 import static android.graphics.Color.YELLOW;
 import android.hardware.Camera;
 
@@ -76,6 +74,10 @@ public class BulletSampleMain extends GVRMain {
     MotionState sidewallState2 = null;
     Geometry sidewallGeometry2 = null;
     GVRSceneObject sphereObject = null;
+    GVRSceneObject groundScene = null;
+    GVRSceneObject wallScene = null;
+    GVRSceneObject sidewallScene1 = null;
+    GVRSceneObject sidewallScene2 = null;
     Integer count = 0;
     Integer totalScore = 0;
     float minX = 0.25f;
@@ -84,7 +86,7 @@ public class BulletSampleMain extends GVRMain {
     float angle = 2f;
     float aspeed = 2f;
     float delta = 2.0f;
-    boolean reset = false;
+    boolean cameraChanged = false;
     int left;
     int right;
     StaticPlaneShape floorShape, wallShape, sidewallShape1, sidewallShape2;
@@ -96,13 +98,8 @@ public class BulletSampleMain extends GVRMain {
     private Camera mCamera;
     private boolean cameraDisplayed = false;
     private GVRAnimation mCameraAnim;
-
     GVRSceneObject mContainer;
-
     private GVRAnimationEngine mAnimationEngine;
-
-
-    private GVRCameraRig mRig;
     private GVRSceneObject mHeadContainer;
 
     // webview stuff
@@ -121,11 +118,35 @@ public class BulletSampleMain extends GVRMain {
         scene = mGVRContext.getNextMainScene();
         mAnimationEngine = mGVRContext.getAnimationEngine();
         mContainer = new GVRSceneObject(gvrContext);
-        mRig = scene.getMainCameraRig();
+        mainCameraRig = scene.getMainCameraRig();
+        mainCameraRig.getLeftCamera().setBackgroundColor(Color.BLACK);
+        mainCameraRig.getRightCamera().setBackgroundColor(Color.BLACK);
+
+        scoreDisplayObject = new GVRTextViewSceneObject(mGVRContext,50.0f,30.0f,null);
+        scoreDisplayObject.getTransform().setPosition(0.0f,42.0f,-210.f);
+        scoreDisplayObject.setGravity(Gravity.CENTER);
+        scoreDisplayObject.setTextColor(YELLOW);
+        scoreDisplayObject.setTextSize(10.0f);
+        scoreDisplayObject.setRefreshFrequency(GVRTextViewSceneObject.IntervalFrequency.HIGH);
+        scene.addSceneObject(scoreDisplayObject);
+
+        /* Create the bowling room */
+        GVRSceneObject bowlingRoom= meshWithTexture("room_export.fbx");
+        bowlingRoom.getTransform().setPosition(0.0f, 0.0f, 0.0f);
+        scene.addSceneObject(bowlingRoom);
+        //GVRDirectLight light = ((GVRDirectLight)(scene.getLightList()[0]));
+        // light.setDiffuseIntensity(0.8f, 0.8f, 0.8f, 0.8f);
+        // light.setAmbientIntensity(0.5f, 0.5f, 0.5f, 1f);
 
         // camera
         initCamera( );
-        createScene();
+        mHeadContainer = new GVRSceneObject(mGVRContext);
+        mainCameraRig.addChildObject(mHeadContainer);
+        addCamera(mHeadContainer);
+
+        Log.v("", "addWeb pre");
+        addWebViews();
+        createPhysicsScene();
     }
 
     @Override
@@ -181,9 +202,10 @@ public class BulletSampleMain extends GVRMain {
                         }
                     }
                 }
-                if (body.geometry.shape.getType() == ShapeType.SPHERE_SHAPE_PROXYTYPE) {
-                    if (body == sphereBody) {
-                        //mainCameraRig.getTransform().setPosition(body.motionState.resultSimulation.originPoint.x, body.motionState.resultSimulation.originPoint.y+15, body.motionState.resultSimulation.originPoint.z + 15);
+                if (!cameraChanged && body.geometry.shape.getType() == ShapeType.SPHERE_SHAPE_PROXYTYPE) {
+                    if (body == sphereBody && (body.motionState.resultSimulation.originPoint.z < -105)) {
+                        cameraChanged = true;
+                        mainCameraRig.getTransform().setPosition(body.motionState.resultSimulation.originPoint.x, body.motionState.resultSimulation.originPoint.y+15, -105);
                     }
                 }
             }
@@ -218,8 +240,8 @@ public class BulletSampleMain extends GVRMain {
 
     private void addCylinder(GVRScene scene, float x, float y, float z, float mass) {
 
-        CylinderShape cylinderShape = new CylinderShape(new Vector3(0.5f,2.0f,0.5f));
-        Geometry cylinderGeometry = mBullet.createGeometry(cylinderShape, mass, new Vector3(1.0f,1.0f,1.0f));
+        CylinderShape cylinderShape = new CylinderShape(new Vector3(0.629f,1.9f,0.629f));
+        Geometry cylinderGeometry = mBullet.createGeometry(cylinderShape, mass, new Vector3(0.0f,0.0f,0.0f));
         MotionState cylinderState = new MotionState();
         cylinderState.worldTransform = new Transform(new Point3(x,y,z));
         RigidBody cylinderBody = mBullet.createAndAddRigidBody(cylinderGeometry,cylinderState);
@@ -279,19 +301,19 @@ public class BulletSampleMain extends GVRMain {
 
         if(!applyForce) {
             if (Math.abs(speed) >= 4500)
-                this.speed = 70;
-            else if (Math.abs(speed) >= 4000)
-                this.speed = 60;
-            else if (Math.abs(speed) >= 3500)
                 this.speed = 50;
-            else if (Math.abs(speed) >= 3000)
+            else if (Math.abs(speed) >= 4000)
+                this.speed = 45;
+            else if (Math.abs(speed) >= 3500)
                 this.speed = 40;
+            else if (Math.abs(speed) >= 3000)
+                this.speed = 35;
             else if (Math.abs(speed) >= 2500)
                 this.speed = 30;
             else if (Math.abs(speed) >= 2000)
-                this.speed = 20;
+                this.speed = 25;
             else if (Math.abs(speed) >= 1500)
-                this.speed = 15;
+                this.speed = 20;
             else if (Math.abs(speed) >= 1000)
                 this.speed = 10;
             else
@@ -300,7 +322,7 @@ public class BulletSampleMain extends GVRMain {
             //sphereObjectFake.getRenderData().setRenderMask(0);
             scene.removeSceneObject(sphereObjectFake);
             applyForce = true;
-            addSphere(scene, 1.0f, sphereObjectFake.getTransform().getPositionX(),
+            addSphere(scene, 1.32f, sphereObjectFake.getTransform().getPositionX(),
                     sphereObjectFake.getTransform().getPositionY(),
                     sphereObjectFake.getTransform().getPositionZ(), SPHERE_MASS);
             if (cameraDisplayed) {
@@ -321,29 +343,34 @@ public class BulletSampleMain extends GVRMain {
     }
 
     public void onTap() {
-        reset = true;
         applyForce = false;
-
-        // clear
-        cameraDisplayed = false;
-        mCameraObject.getRenderData().getMaterial().setOpacity( 0.0f );
-        mHeadContainer.removeChildObject( mCameraObject );
         //scene.removeSceneObject(mContainer);
-        scene.clear();
-        createScene();
+        //scene.clear();
+        scene.removeSceneObject(groundScene);
+        scene.removeSceneObject(wallScene);
+        scene.removeSceneObject(sidewallScene1);
+        scene.removeSceneObject(sidewallScene2);
+        scene.removeSceneObject(sphereObjectFake);
+
+        for (RigidBody body : rigidBodiesSceneMap.keySet()) {
+            if (body.geometry.shape.getType() == ShapeType.SPHERE_SHAPE_PROXYTYPE
+                    || body.geometry.shape.getType() == ShapeType.CYLINDER_SHAPE_PROXYTYPE) {
+                scene.removeSceneObject(rigidBodiesSceneMap.get(body));
+            }
+        }
+        createPhysicsScene();
     }
 
-    public void createScene() {
+    public void createPhysicsScene() {
         left = 5;
         right = 5;
         count = 0;
-        Log.e("Bowling","count" + " " +count);
         count = 0;
-        mainCameraRig = scene.getMainCameraRig();
-        mainCameraRig.getLeftCamera().setBackgroundColor(Color.BLACK);
-        mainCameraRig.getRightCamera().setBackgroundColor(Color.BLACK);
-        mainCameraRig.getTransform().setPosition(0.0f, 17.0f, 10.0f);
-
+        
+        mainCameraRig.disable();
+        mainCameraRig.enable();
+        mainCameraRig.getTransform().setPosition(0.0f, 15.0f, 15.0f);
+        cameraChanged = false;
 
         mBullet = new Bullet();
         /*
@@ -357,7 +384,7 @@ public class BulletSampleMain extends GVRMain {
          * Create the ground. A simple textured quad. In bullet it will be a
          * plane shape with 0 mass
          */
-        GVRSceneObject groundScene = meshWithTexture("floor.fbx");
+        groundScene = meshWithTexture("floor.fbx");
         //groundScene.getTransform().setRotationByAxis(-90.0f, 1.0f, 0.0f, 0.0f);
         groundScene.getTransform().setPosition(0.0f, 0.0f, 0.0f);
         scene.addSceneObject(groundScene);
@@ -367,18 +394,11 @@ public class BulletSampleMain extends GVRMain {
         floorState = new MotionState();
         floorBody = mBullet.createAndAddRigidBody(floorGeometry, floorState);
 
-        GVRSceneObject wallScene = meshWithTexture("wall.fbx");
+        wallScene = meshWithTexture("wall.fbx");
         //wallScene.getTransform().setRotationByAxis(-0.0f, 1.0f, 0.0f, 0.0f);
         wallScene.getTransform().setPosition(0.0f, 0.0f, -210.0f);
         scene.addSceneObject(wallScene);
 
-        scoreDisplayObject = new GVRTextViewSceneObject(mGVRContext,50.0f,30.0f,null);
-        scoreDisplayObject.getTransform().setPosition(0.0f,42.0f,-210.f);
-        scoreDisplayObject.setGravity(Gravity.CENTER);
-        scoreDisplayObject.setTextColor(YELLOW);
-        scoreDisplayObject.setTextSize(10.0f);
-        scoreDisplayObject.setRefreshFrequency(GVRTextViewSceneObject.IntervalFrequency.HIGH);
-        scene.addSceneObject(scoreDisplayObject);
         scoreDisplayObject.setText("Vol Key to adjust Ball\nForward Swipe to Throw\nSwipe Speed -> Ball Speed\nSwipe Down -> See Through");
 
         wallShape = new StaticPlaneShape(new Vector3(0.0f, 0.0f, 1.0f), 0.0f);
@@ -387,7 +407,7 @@ public class BulletSampleMain extends GVRMain {
         wallState.worldTransform = new Transform(new Point3(0.0f, 0.0f, -210.0f));
         mBullet.createAndAddRigidBody(wallGeometry, wallState);
 
-        GVRSceneObject sidewallScene1 = meshWithTexture("sidewall1.fbx");
+        sidewallScene1 = meshWithTexture("sidewall1.fbx");
         //wallScene.getTransform().setRotationByAxis(-0.0f, 1.0f, 0.0f, 0.0f);
         sidewallScene1.getTransform().setPosition(0.0f, 0.0f, 0.0f);
         scene.addSceneObject(sidewallScene1);
@@ -398,7 +418,7 @@ public class BulletSampleMain extends GVRMain {
         sidewallState1.worldTransform = new Transform(new Point3(-7.5f, 0.0f, 0.0f));
         mBullet.createAndAddRigidBody(sidewallGeometry1, sidewallState1);
 
-        GVRSceneObject sidewallScene2 = meshWithTexture("sidewall2.fbx");
+        sidewallScene2 = meshWithTexture("sidewall2.fbx");
         //wallScene.getTransform().setRotationByAxis(-0.0f, 1.0f, 0.0f, 0.0f);
         sidewallScene2.getTransform().setPosition(0.0f, 0.0f, 0.0f);
         scene.addSceneObject(sidewallScene2);
@@ -409,42 +429,24 @@ public class BulletSampleMain extends GVRMain {
         sidewallState2.worldTransform = new Transform(new Point3(7.5f, 0.0f, 0.0f));
         mBullet.createAndAddRigidBody(sidewallGeometry2, sidewallState2);
 
-        /* Create the bowling room */
-
-        GVRSceneObject bowlingRoom= meshWithTexture("room_export.fbx");
-        bowlingRoom.getTransform().setPosition(0.0f, 0.0f, 0.0f);
-        scene.addSceneObject(bowlingRoom);
-        //GVRDirectLight light = ((GVRDirectLight)(scene.getLightList()[0]));
-       // light.setDiffuseIntensity(0.8f, 0.8f, 0.8f, 0.8f);
-       // light.setAmbientIntensity(0.5f, 0.5f, 0.5f, 1f);
-
         /* Create 10 pins in 4,3,2,1 order */
+        addCylinder(scene,-2.0f,1.9f,-200.0f, CYLINDER_MASS);
+        addCylinder(scene,0.0f,1.9f,-200.0f, CYLINDER_MASS);
+        addCylinder(scene,2.0f,1.9f,-200.0f, CYLINDER_MASS);
+        addCylinder(scene,4.0f,1.9f,-200.0f, CYLINDER_MASS);
 
-        addCylinder(scene,-2.0f,2.0f,-200.0f, CYLINDER_MASS);
-        addCylinder(scene,0.0f,2.0f,-200.0f, CYLINDER_MASS);
-        addCylinder(scene,2.0f,2.0f,-200.0f, CYLINDER_MASS);
-        addCylinder(scene,4.0f,2.0f,-200.0f, CYLINDER_MASS);
+        addCylinder(scene,-1.0f,1.9f,-197.0f, CYLINDER_MASS);
+        addCylinder(scene,1.0f,1.9f,-197.0f, CYLINDER_MASS);
+        addCylinder(scene,3.0f,1.9f,-197.0f, CYLINDER_MASS);
 
-        addCylinder(scene,-1.0f,2.0f,-197.0f, CYLINDER_MASS);
-        addCylinder(scene,1.0f,2.0f,-197.0f, CYLINDER_MASS);
-        addCylinder(scene,3.0f,2.0f,-197.0f, CYLINDER_MASS);
+        addCylinder(scene,0.0f,1.9f,-194.0f, CYLINDER_MASS);
+        addCylinder(scene,2.0f,1.9f,-194.0f, CYLINDER_MASS);
 
-        addCylinder(scene,0.0f,2.0f,-194.0f, CYLINDER_MASS);
-        addCylinder(scene,2.0f,2.0f,-194.0f, CYLINDER_MASS);
-
-        addCylinder(scene,1.0f,2.0f,-191.0f, CYLINDER_MASS);
+        addCylinder(scene,1.0f,1.9f,-191.0f, CYLINDER_MASS);
 
         // for now just the fake sphere
         addDisplaySphere(scene, 1.0f, 0.0f, 2.0f, 2.0f, SPHERE_MASS);
         //addSphere(scene, 1.0f, 0.0f, 3.0f, 2.0f, 20.0f);
-
-        // camera
-        mHeadContainer = new GVRSceneObject(mGVRContext);
-        mRig.addChildObject(mHeadContainer);
-        addCamera(mHeadContainer);
-
-        Log.v("", "addWeb pre");
-        addWebViews();
     }
 
     public void addWebViews() {
@@ -487,7 +489,6 @@ public class BulletSampleMain extends GVRMain {
             }
         }
     }
-
 
     @SuppressWarnings("deprecation")
     public void initCamera() {
