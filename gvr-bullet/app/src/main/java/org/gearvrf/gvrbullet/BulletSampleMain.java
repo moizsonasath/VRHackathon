@@ -275,13 +275,19 @@ public class BulletSampleMain extends GVRMain {
     public void onSwipe(float speed) {
         if(!applyForce) {
             if (Math.abs(speed) >= 4500)
+                this.speed = 70;
+            else if (Math.abs(speed) >= 4000)
+                this.speed = 60;
+            else if (Math.abs(speed) >= 3500)
                 this.speed = 50;
-            if (Math.abs(speed) >= 4000)
+            else if (Math.abs(speed) >= 3000)
                 this.speed = 40;
-            if (Math.abs(speed) >= 3000)
+            else if (Math.abs(speed) >= 2500)
                 this.speed = 30;
             else if (Math.abs(speed) >= 2000)
                 this.speed = 20;
+            else if (Math.abs(speed) >= 1500)
+                this.speed = 15;
             else if (Math.abs(speed) >= 1000)
                 this.speed = 10;
             else
