@@ -98,17 +98,17 @@ public class BulletSampleMain extends GVRMain {
 
         mAnimationEngine = mGVRContext.getAnimationEngine();
 
+        mContainer = new GVRSceneObject(gvrContext);
+
         mRig = scene.getMainCameraRig();
-        mHeadContainer = new GVRSceneObject(gvrContext);
-        mRig.addChildObject(mHeadContainer);
+
+
+        // camera
+        initCamera( );
 
         createScene();
 
 
-        // camera
-        mContainer = new GVRSceneObject(gvrContext);
-        scene.addSceneObject(mContainer);
-        initCamera( mHeadContainer );
     }
 
     float angle = 2f;
@@ -283,6 +283,11 @@ public class BulletSampleMain extends GVRMain {
                 sphereObjectFake.getTransform().getPositionY(),
                 sphereObjectFake.getTransform().getPositionZ(), 50.0f);
 
+        if (cameraDisplayed) {
+            mCameraObject.getRenderData().getMaterial().setOpacity( 0.0f );
+            cameraDisplayed = false;
+        }
+
     }
 
     public void onSwipe2(int dir) {
@@ -296,6 +301,12 @@ public class BulletSampleMain extends GVRMain {
     public void onTap() {
         reset = true;
         applyForce = false;
+
+        // clear
+        cameraDisplayed = false;
+        mCameraObject.getRenderData().getMaterial().setOpacity( 0.0f );
+        mHeadContainer.removeChildObject( mCameraObject );
+        //scene.removeSceneObject(mContainer);
         scene.clear();
 
         createScene();
@@ -394,6 +405,13 @@ public class BulletSampleMain extends GVRMain {
         // for now just the fake sphere
         addDisplaySphere(scene, 1.0f, 0.0f, 2.0f, 2.0f, 50.0f);
         //addSphere(scene, 1.0f, 0.0f, 3.0f, 2.0f, 20.0f);
+
+
+
+        // camera
+        mHeadContainer = new GVRSceneObject(mGVRContext);
+        mRig.addChildObject(mHeadContainer);
+        addCamera(mHeadContainer);
     }
 
     public void moveLeft() {
@@ -422,7 +440,7 @@ public class BulletSampleMain extends GVRMain {
 
 
     @SuppressWarnings("deprecation")
-    public void initCamera(GVRSceneObject container) {
+    public void initCamera() {
         mCamera = Camera.open();
 
         mCamera.startPreview();
@@ -437,7 +455,9 @@ public class BulletSampleMain extends GVRMain {
         Log.v(TAG, "Camera size: " + size.width + "," + size.height);
 
         mCamera.setParameters(parameters);
+    }
 
+    public void addCamera(GVRSceneObject container) {
         float ratio = 16f / 9f; // size.width / size.height;
 
         float H = 1.0f;
