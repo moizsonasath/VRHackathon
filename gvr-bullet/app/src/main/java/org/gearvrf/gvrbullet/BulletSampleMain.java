@@ -3,6 +3,7 @@ package org.gearvrf.gvrbullet;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.gearvrf.FutureWrapper;
 import org.gearvrf.GVRAndroidResource;
@@ -77,6 +78,12 @@ public class BulletSampleMain extends GVRMain {
     GVRSceneObject sphereObject = null;
     Integer count = 0;
     Integer totalScore = 0;
+    float minX = 0.25f;
+    float maxX = 0.50f;
+    float finalX = 0.50f;
+    float angle = 2f;
+    float aspeed = 2f;
+    float delta = 2.0f;
     boolean reset = false;
     int left;
     int right;
@@ -112,25 +119,15 @@ public class BulletSampleMain extends GVRMain {
     public void onInit(GVRContext gvrContext) throws Throwable {
         mGVRContext = gvrContext;
         scene = mGVRContext.getNextMainScene();
-
         mAnimationEngine = mGVRContext.getAnimationEngine();
-
         mContainer = new GVRSceneObject(gvrContext);
-
         mRig = scene.getMainCameraRig();
-
 
         // camera
         initCamera( );
-
         createScene();
-
-
     }
 
-    float angle = 2f;
-    float aspeed = 2f;
-    float delta = 2.0f;
     @Override
     public void onStep() {
         if (applyForce) {
@@ -142,22 +139,14 @@ public class BulletSampleMain extends GVRMain {
             mBullet.setActivePhysicsWorldAll(physicsWorld.id, true);
             mBullet.applyCentralImpulse(sphereBody, new Vector3(0.0f, 0.0f, -(this.speed)));
 
-            float[] lookAt = mainCameraRig.getLookAt();
-            if(lookAt[0] > 5.0f){
-                Log.d("test", "Look right");
-                if(delta < 5.0f) {
-                    //mBullet.applyCentralImpulse(sphereBody, new Vector3(delta, 0.0f, -(this.speed)));
-                    //delta++;
-                }
-
-            }else if (lookAt[0] < -5.0f){
-                Log.d("test", "Look left");
-
-                if(delta- 1 > -5.0f) {
-                    //delta--;
-                }
-            }
-
+            Random rand = new Random();
+            finalX = rand.nextFloat() * (maxX - minX) + minX;
+            if (left < 5)
+                mBullet.applyCentralImpulse(sphereBody, new Vector3(finalX, 0.0f, -(this.speed)));
+            else if (right < 5)
+                mBullet.applyCentralImpulse(sphereBody, new Vector3(-finalX, 0.0f, -(this.speed)));
+            else
+                mBullet.applyCentralImpulse(sphereBody, new Vector3(0.0f, 0.0f, -(this.speed)));
 
             for (RigidBody body : rigidBodiesSceneMap.keySet()) {
                 if (body.geometry.shape.getType() == ShapeType.SPHERE_SHAPE_PROXYTYPE
@@ -242,24 +231,6 @@ public class BulletSampleMain extends GVRMain {
     }
 
     /*
-     * Function to add a cube of unit size with mass at the specified position
-     * in Bullet physics world and scene graph.
-     */
-    private void addCube(GVRScene scene, float x, float y, float z, float mass) {
-        BoxShape boxShape = new BoxShape(new Vector3(0.5f, 0.5f, 0.5f));
-        boxGeometry = mBullet.createGeometry(boxShape, mass,
-                new Vector3(0.0f, 0.0f, 0.0f));
-        boxState = new MotionState();
-        boxState.worldTransform = new Transform(new Point3(x, y, z));
-        RigidBody boxBody = mBullet.createAndAddRigidBody(boxGeometry, boxState);
-        GVRSceneObject cubeObject = meshWithTexture("cube.obj");
-        cubeObject.getTransform().setPosition(x, y, z);
-        objectMap.put(cubeObject, new Vector3f(x,y,z));
-        scene.addSceneObject(cubeObject);
-        rigidBodiesSceneMap.put(boxBody, cubeObject);
-    }
-
-    /*
      * Function to add a sphere of dimension and position specified in the
      * Bullet physics world and scene graph
      */
@@ -302,13 +273,22 @@ public class BulletSampleMain extends GVRMain {
 
 
     public void onSwipe(float speed) {
-        if (!applyForce) {
-            if (Math.abs(speed) >= 4000)
+
+        if(!applyForce) {
+            if (Math.abs(speed) >= 4500)
+                this.speed = 70;
+            else if (Math.abs(speed) >= 4000)
+                this.speed = 60;
+            else if (Math.abs(speed) >= 3500)
+                this.speed = 50;
+            else if (Math.abs(speed) >= 3000)
                 this.speed = 40;
-            if (Math.abs(speed) >= 3000)
+            else if (Math.abs(speed) >= 2500)
                 this.speed = 30;
             else if (Math.abs(speed) >= 2000)
                 this.speed = 20;
+            else if (Math.abs(speed) >= 1500)
+                this.speed = 15;
             else if (Math.abs(speed) >= 1000)
                 this.speed = 10;
             else
@@ -320,11 +300,12 @@ public class BulletSampleMain extends GVRMain {
             addSphere(scene, 1.0f, sphereObjectFake.getTransform().getPositionX(),
                     sphereObjectFake.getTransform().getPositionY(),
                     sphereObjectFake.getTransform().getPositionZ(), SPHERE_MASS);
-
             if (cameraDisplayed) {
-                mCameraObject.getRenderData().getMaterial().setOpacity(0.0f);
+                mCameraObject.getRenderData().getMaterial().setOpacity( 0.0f );
                 cameraDisplayed = false;
             }
+
+
 
         }
     }
@@ -395,7 +376,7 @@ public class BulletSampleMain extends GVRMain {
         scoreDisplayObject.setTextSize(10.0f);
         scoreDisplayObject.setRefreshFrequency(GVRTextViewSceneObject.IntervalFrequency.HIGH);
         scene.addSceneObject(scoreDisplayObject);
-        scoreDisplayObject.setText("Vol Key to adjust Ball \n\n Forward Swipe to Throw \n\n Swipe Speed -> Ball Speed");
+        scoreDisplayObject.setText("Vol Key to adjust Ball\nForward Swipe to Throw\nSwipe Speed -> Ball Speed\nSwipe Down -> See Through");
 
         wallShape = new StaticPlaneShape(new Vector3(0.0f, 0.0f, 1.0f), 0.0f);
         wallGeometry = mBullet.createGeometry(wallShape, 0.0f, new Vector3(0.0f, 0.0f, 0.0f));
@@ -441,21 +422,18 @@ public class BulletSampleMain extends GVRMain {
         addCylinder(scene,2.0f,2.0f,-200.0f, CYLINDER_MASS);
         addCylinder(scene,4.0f,2.0f,-200.0f, CYLINDER_MASS);
 
-        addCylinder(scene,-1.0f,2.0f,-195.0f, CYLINDER_MASS);
-        addCylinder(scene,1.0f,2.0f,-195.0f, CYLINDER_MASS);
-        addCylinder(scene,3.0f,2.0f,-195.0f, CYLINDER_MASS);
+        addCylinder(scene,-1.0f,2.0f,-197.0f, CYLINDER_MASS);
+        addCylinder(scene,1.0f,2.0f,-197.0f, CYLINDER_MASS);
+        addCylinder(scene,3.0f,2.0f,-197.0f, CYLINDER_MASS);
 
-        addCylinder(scene,0.0f,2.0f,-190.0f, CYLINDER_MASS);
-        addCylinder(scene,2.0f,2.0f,-190.0f, CYLINDER_MASS);
+        addCylinder(scene,0.0f,2.0f,-194.0f, CYLINDER_MASS);
+        addCylinder(scene,2.0f,2.0f,-194.0f, CYLINDER_MASS);
 
-        addCylinder(scene,1.0f,2.0f,-185.0f, CYLINDER_MASS);
+        addCylinder(scene,1.0f,2.0f,-191.0f, CYLINDER_MASS);
 
-        //addSphere(scene, 1.0f, 0.0f, 1.0f, -1.0f, 50.0f);
         // for now just the fake sphere
         addDisplaySphere(scene, 1.0f, 0.0f, 2.0f, 2.0f, SPHERE_MASS);
         //addSphere(scene, 1.0f, 0.0f, 3.0f, 2.0f, 20.0f);
-
-
 
         // camera
         mHeadContainer = new GVRSceneObject(mGVRContext);
@@ -468,11 +446,7 @@ public class BulletSampleMain extends GVRMain {
 
     public void addWebViews() {
         float angle = 45f;
-
-
         GVRView webView = mActivity.getWebView(0);
-
-
         webViewObject = createWebViewObject(mGVRContext, 15f, 15f, webView);
         webViewObject.getTransform().setPosition( -12f, 15.0f, -2.5f );
         webViewObject.getTransform().setRotationByAxis( angle,  0.0f, 1.0f, 0.0f );
@@ -485,7 +459,6 @@ public class BulletSampleMain extends GVRMain {
         webViewObject2.getTransform().setPosition( 12f, 15f, -2.5f );
         webViewObject2.getTransform().setRotationByAxis( -angle,  0.0f, 1.0f, 0.0f );
         scene.addSceneObject(webViewObject2);
-
     }
 
     public void moveLeft() {
