@@ -10,9 +10,15 @@ import org.gearvrf.GVRCameraRig;
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRDirectLight;
 import org.gearvrf.GVRMesh;
+import org.gearvrf.GVRRenderData;
 import org.gearvrf.GVRScene;
 import org.gearvrf.GVRSceneObject;
 import org.gearvrf.GVRMain;
+import org.gearvrf.animation.GVRAnimation;
+import org.gearvrf.animation.GVRAnimationEngine;
+import org.gearvrf.animation.GVROpacityAnimation;
+import org.gearvrf.scene_objects.GVRCameraSceneObject;
+
 import org.gearvrf.utility.Log;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -32,8 +38,11 @@ import org.siprop.bullet.util.ShapeType;
 import org.siprop.bullet.util.Vector3;
 
 import android.graphics.Color;
+import android.hardware.Camera;
 
 public class BulletSampleMain extends GVRMain {
+
+    private static String TAG = "Bullet";
 
     private GVRContext mGVRContext = null;
     GVRScene scene = null;
@@ -68,11 +77,38 @@ public class BulletSampleMain extends GVRMain {
     // fake sphere
     GVRSceneObject sphereObjectFake = null;
 
+    private GVRCameraSceneObject mCameraObject;
+    private Camera mCamera;
+    private boolean cameraDisplayed = false;
+    private GVRAnimation mCameraAnim;
+
+    GVRSceneObject mContainer;
+
+    private GVRAnimationEngine mAnimationEngine;
+
+
+    private GVRCameraRig mRig;
+    private GVRSceneObject mHeadContainer;
+
+
     @Override
     public void onInit(GVRContext gvrContext) throws Throwable {
         mGVRContext = gvrContext;
         scene = mGVRContext.getNextMainScene();
+
+        mAnimationEngine = mGVRContext.getAnimationEngine();
+
+        mRig = scene.getMainCameraRig();
+        mHeadContainer = new GVRSceneObject(gvrContext);
+        mRig.addChildObject(mHeadContainer);
+
         createScene();
+
+
+        // camera
+        mContainer = new GVRSceneObject(gvrContext);
+        scene.addSceneObject(mContainer);
+        initCamera( mHeadContainer );
     }
 
     float angle = 2f;
@@ -249,6 +285,14 @@ public class BulletSampleMain extends GVRMain {
 
     }
 
+    public void onSwipe2(int dir) {
+        if (dir > 0) {
+            togglePassthroughCamera(false);
+        } else {
+            togglePassthroughCamera(true);
+        }
+    }
+
     public void onTap() {
         reset = true;
         applyForce = false;
@@ -375,4 +419,53 @@ public class BulletSampleMain extends GVRMain {
             }
         }
     }
+
+
+    @SuppressWarnings("deprecation")
+    public void initCamera(GVRSceneObject container) {
+        mCamera = Camera.open();
+
+        mCamera.startPreview();
+
+        Camera.Parameters parameters = mCamera.getParameters();
+        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+
+        Camera.Size size = parameters.getPreferredPreviewSizeForVideo();
+
+        parameters.setPreviewSize(size.width, size.height);
+
+        Log.v(TAG, "Camera size: " + size.width + "," + size.height);
+
+        mCamera.setParameters(parameters);
+
+        float ratio = 16f / 9f; // size.width / size.height;
+
+        float H = 1.0f;
+        float W = H * ratio;
+
+        mCameraObject = new GVRCameraSceneObject(mGVRContext,
+                W, H, mCamera);
+        mCameraObject.getTransform().setPosition( 0f, 0f, -1.3f );
+        mCameraObject.getRenderData().getMaterial().setOpacity( 0.0f );
+        mCameraObject.getRenderData().setDepthTest(false);
+        mCameraObject.getRenderData().setRenderingOrder(GVRRenderData.GVRRenderingOrder.TRANSPARENT);
+        //mCameraObject.getTransform().rotateByAxis( -90f, 0.0f, 1.0f, 0.0f );
+
+        container.addChildObject(mCameraObject);
+    }
+
+    public void togglePassthroughCamera(boolean active) {
+        if (cameraDisplayed == active)
+            return;
+
+        float ANIMATION_DURATION = 0.6f; // secs
+
+        mCameraAnim = new GVROpacityAnimation(mCameraObject, ANIMATION_DURATION,
+                active ? 1.0f : 0.0f );
+
+        mCameraAnim.start(mAnimationEngine);
+
+        cameraDisplayed = active;
+    }
+
 }

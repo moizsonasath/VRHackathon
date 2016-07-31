@@ -70,6 +70,10 @@ public class BulletSampleActivity extends GVRActivity implements
 
         if (swipeDirection.equals(SwipeDirection.Forward)) {
             viewManager.onSwipe(velocityX);
+        } else if (swipeDirection.equals(SwipeDirection.Down)) {
+            viewManager.onSwipe2(-1);
+        } else if (swipeDirection.equals(SwipeDirection.Up)) {
+            viewManager.onSwipe2(1);
         }
         return false;
     }
