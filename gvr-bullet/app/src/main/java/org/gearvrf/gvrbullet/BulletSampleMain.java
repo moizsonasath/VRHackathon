@@ -20,6 +20,7 @@ import org.gearvrf.animation.GVRAnimationEngine;
 import org.gearvrf.animation.GVROpacityAnimation;
 import org.gearvrf.scene_objects.GVRCameraSceneObject;
 
+import org.gearvrf.scene_objects.GVRVideoSceneObject;
 import org.gearvrf.scene_objects.GVRViewSceneObject;
 import org.gearvrf.scene_objects.view.GVRView;
 import org.gearvrf.utility.Log;
@@ -38,11 +39,16 @@ import org.siprop.bullet.util.Point3;
 import org.siprop.bullet.util.ShapeType;
 import org.siprop.bullet.util.Vector3;
 
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.os.SystemClock;
 import android.view.Gravity;
 
 import static android.graphics.Color.YELLOW;
 import android.hardware.Camera;
+import android.view.MotionEvent;
+import android.webkit.WebView;
 
 public class BulletSampleMain extends GVRMain {
 
@@ -88,6 +94,7 @@ public class BulletSampleMain extends GVRMain {
     float delta = 2.0f;
     boolean cameraChanged = false;
     boolean audioPlayed = false;
+    boolean clapPlayed = false;
     int left;
     int right;
     StaticPlaneShape floorShape, wallShape, sidewallShape1, sidewallShape2;
@@ -106,8 +113,14 @@ public class BulletSampleMain extends GVRMain {
     // webview stuff
     public GVRViewSceneObject webViewObject;
     public GVRViewSceneObject webViewObject2;
+    public GVRViewSceneObject webViewObject3;
+
+    //video
+    GVRVideoSceneObject videoObject;
+
 
     BulletSampleActivity mActivity;
+
     BulletSampleMain(BulletSampleActivity activity) {
         mActivity = activity;
     }
@@ -141,6 +154,7 @@ public class BulletSampleMain extends GVRMain {
 
         // camera
         initCamera( );
+
         mHeadContainer = new GVRSceneObject(mGVRContext);
         mainCameraRig.addChildObject(mHeadContainer);
         addCamera(mHeadContainer);
@@ -196,9 +210,10 @@ public class BulletSampleMain extends GVRMain {
 
                             if (count == 10) {
                                 scoreDisplayObject.setText("STRIKE!!!\n Total Score:" + totalScore +"\n\n Back Key to Play Again");
-                                if (!audioPlayed) {
-                                    AudioClip.getInstance(mGVRContext.getContext()).playSound(AudioClip.bowlingPinsHitSoundID(),10,10);
+                                if (!audioPlayed || !clapPlayed) {
+                                    AudioClip.getInstance(mGVRContext.getContext()).playSound(AudioClip.clapSoundID(),10,10);
                                     audioPlayed = true;
+                                    clapPlayed = true;
                                 }
                             }
                             else {
@@ -339,10 +354,8 @@ public class BulletSampleMain extends GVRMain {
                 mCameraObject.getRenderData().getMaterial().setOpacity( 0.0f );
                 cameraDisplayed = false;
             }
-
-
-
         }
+
     }
     public void onSwipe2(int dir) {
         if (dir > 0) {
@@ -350,6 +363,33 @@ public class BulletSampleMain extends GVRMain {
         } else {
             togglePassthroughCamera(true);
         }
+    }
+
+    public void onRealTap() {
+        //videoObject.getMediaPlayer().start();
+        // crashing when try to play :(
+
+        clickWebview();
+    }
+
+    public void clickWebview() {
+        MyWebView webView = (MyWebView) mActivity.getWebView(0);
+
+        final long uMillis = SystemClock.uptimeMillis();
+
+        float x = 512;
+        float y = 512;
+
+        boolean val = true;
+
+        webView.isTouchable(val);
+
+        webView.dispatchTouchEvent(MotionEvent.obtain(uMillis, uMillis,
+                MotionEvent.ACTION_DOWN, x, y, 0));
+        webView.dispatchTouchEvent(MotionEvent.obtain(uMillis, uMillis,
+                MotionEvent.ACTION_UP, x, y, 0));
+
+        webView.isTouchable(!val);
     }
 
     public void onTap() {
@@ -382,6 +422,7 @@ public class BulletSampleMain extends GVRMain {
         mainCameraRig.getTransform().setPosition(0.0f, 15.0f, 15.0f);
         cameraChanged = false;
         audioPlayed = false;
+        clapPlayed = false;
 
         mBullet = new Bullet();
         /*
@@ -462,19 +503,32 @@ public class BulletSampleMain extends GVRMain {
 
     public void addWebViews() {
         float angle = 45f;
-        GVRView webView = mActivity.getWebView(0);
-        webViewObject = createWebViewObject(mGVRContext, 15f, 15f, webView);
-        webViewObject.getTransform().setPosition( -12f, 15.0f, -2.5f );
+        GVRView webView = mActivity.getWebView(2);
+        webViewObject = createWebViewObject(mGVRContext, 25f, 25f, webView);
+        webViewObject.getTransform().setPosition( -23f, 19f, -15f );
         webViewObject.getTransform().setRotationByAxis( angle,  0.0f, 1.0f, 0.0f );
+
+        webViewObject.getRenderData().getMaterial().setOpacity( 0.6f );
+        webViewObject.getRenderData().setDepthTest(false);
+        webViewObject.getRenderData().setRenderingOrder(GVRRenderData.GVRRenderingOrder.TRANSPARENT);
+
         scene.addSceneObject(webViewObject);
 
         Log.v("", "addWebView");
 
         GVRView webView2 = mActivity.getWebView(1);
-        webViewObject2 = createWebViewObject(mGVRContext, 15f, 15f, webView2);
-        webViewObject2.getTransform().setPosition( 12f, 15f, -2.5f );
-        webViewObject2.getTransform().setRotationByAxis( -angle,  0.0f, 1.0f, 0.0f );
+        webViewObject2 = createWebViewObject(mGVRContext, 25f, 25f, webView2);
+        webViewObject2.getTransform().setPosition( 30f, 19f, 24f );
+        webViewObject2.getTransform().setRotationByAxis( -90,  0.0f, 1.0f, 0.0f );
         scene.addSceneObject(webViewObject2);
+
+        GVRView webView3 = mActivity.getWebView(0);
+        webViewObject3 = createWebViewObject(mGVRContext, 25f, 25f, webView3);
+        webViewObject3.getTransform().setPosition( -40f, 25f, 25f );
+        webViewObject3.getTransform().setRotationByAxis( 90,  0.0f, 1.0f, 0.0f );
+        scene.addSceneObject(webViewObject3);
+
+
     }
 
     public void moveLeft() {
@@ -550,4 +604,14 @@ public class BulletSampleMain extends GVRMain {
         cameraDisplayed = active;
     }
 
+    private GVRVideoSceneObject createVideoObject(GVRContext gvrContext) throws IOException {
+        final AssetFileDescriptor afd = gvrContext.getActivity().getAssets().openFd("tron.mp4");
+        final MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+        mediaPlayer.prepare();
+        GVRVideoSceneObject video = new GVRVideoSceneObject(gvrContext, 8.0f,
+                4.0f, mediaPlayer, GVRVideoSceneObject.GVRVideoType.MONO);
+        video.setName("video");
+        return video;
+    }
 }

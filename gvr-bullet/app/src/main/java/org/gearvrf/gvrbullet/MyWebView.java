@@ -15,6 +15,8 @@ import android.webkit.WebView;
  */
 public class MyWebView extends WebView {
 
+    public boolean _isTouchable = false;
+
     public MyWebView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -23,12 +25,16 @@ public class MyWebView extends WebView {
         super(context);
     }
 
+    public void isTouchable(boolean val) {
+        this._isTouchable = val;
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        //if(!isTouchable){
-        //    return super.onTouchEvent(event);
-        //}
+        if(this._isTouchable){
+            return super.onTouchEvent(event);
+        }
         return false;
     }
 
