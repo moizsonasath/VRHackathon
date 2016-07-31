@@ -27,7 +27,7 @@ public class BulletSampleActivity extends GVRActivity implements
 
     // webview
     private MyGVRWebView[] webViews = new MyGVRWebView[3];
-    String url = "https://soundcloud.com/dude-lebowski-1/bowling";
+    String url = "https://soundcloud.com/ge-gras/goodbye-hello";
     String url2 = "https://twitter.com/SamsungMobile";
     String url3 = "http://dev.quasi.co/live";
 
@@ -50,7 +50,7 @@ public class BulletSampleActivity extends GVRActivity implements
         MyGVRWebView webView = new MyGVRWebView(this);
 
         webView.setInitialScale(300);
-        int w = 10, h = 10;
+        int w = 1024, h = 1024;
         webView.measure(w, h);
         webView.layout(0, 0, w, h);
 

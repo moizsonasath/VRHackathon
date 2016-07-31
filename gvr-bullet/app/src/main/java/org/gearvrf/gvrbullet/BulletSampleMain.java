@@ -42,10 +42,13 @@ import org.siprop.bullet.util.Vector3;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.SystemClock;
 import android.view.Gravity;
 
 import static android.graphics.Color.YELLOW;
 import android.hardware.Camera;
+import android.view.MotionEvent;
+import android.webkit.WebView;
 
 public class BulletSampleMain extends GVRMain {
 
@@ -363,6 +366,28 @@ public class BulletSampleMain extends GVRMain {
     public void onRealTap() {
         //videoObject.getMediaPlayer().start();
         // crashing when try to play :(
+
+        clickWebview();
+    }
+
+    public void clickWebview() {
+        MyWebView webView = (MyWebView) mActivity.getWebView(0);
+
+        final long uMillis = SystemClock.uptimeMillis();
+
+        float x = 512;
+        float y = 512;
+
+        boolean val = true;
+
+        webView.isTouchable(val);
+
+        webView.dispatchTouchEvent(MotionEvent.obtain(uMillis, uMillis,
+                MotionEvent.ACTION_DOWN, x, y, 0));
+        webView.dispatchTouchEvent(MotionEvent.obtain(uMillis, uMillis,
+                MotionEvent.ACTION_UP, x, y, 0));
+
+        webView.isTouchable(!val);
     }
 
     public void onTap() {
