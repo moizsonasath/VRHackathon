@@ -87,6 +87,7 @@ public class BulletSampleMain extends GVRMain {
     float aspeed = 2f;
     float delta = 2.0f;
     boolean cameraChanged = false;
+    boolean audioPlayed = false;
     int left;
     int right;
     StaticPlaneShape floorShape, wallShape, sidewallShape1, sidewallShape2;
@@ -192,10 +193,22 @@ public class BulletSampleMain extends GVRMain {
                             rigidBodiesSceneMap.get(body).getTransform().rotateByAxis(value, 0.0f, 1.0f, 0.0f);
                             count++;
                             totalScore++;
-                            if (count == 10)
+
+                            if (count == 10) {
                                 scoreDisplayObject.setText("STRIKE!!!\n Total Score:" + totalScore +"\n\n Back Key to Play Again");
-                            else
-                                scoreDisplayObject.setText("SCORE:" + count + "\nTotal Score:" + totalScore +"\n\n Back Key to Play Again");
+                                if (!audioPlayed) {
+                                    AudioClip.getInstance(mGVRContext.getContext()).playSound(AudioClip.bowlingPinsHitSoundID(),10,10);
+                                    audioPlayed = true;
+                                }
+                            }
+                            else {
+                                scoreDisplayObject.setText("SCORE:" + count + "\nTotal Score:" + totalScore + "\n\n Back Key to Play Again");
+                                if (!audioPlayed) {
+                                    AudioClip.getInstance(mGVRContext.getContext()).playSound(AudioClip.bowlingPinsHitSoundID(), 10, 10);
+                                    audioPlayed = true;
+                                }
+                            }
+
                         }
                     }
                 }
@@ -368,6 +381,7 @@ public class BulletSampleMain extends GVRMain {
         mainCameraRig.enable();
         mainCameraRig.getTransform().setPosition(0.0f, 15.0f, 15.0f);
         cameraChanged = false;
+        audioPlayed = false;
 
         mBullet = new Bullet();
         /*
