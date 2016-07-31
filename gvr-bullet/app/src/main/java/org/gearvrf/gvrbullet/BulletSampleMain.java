@@ -500,23 +500,28 @@ public class BulletSampleMain extends GVRMain {
 
     public void addWebViews() {
         float angle = 45f;
-        GVRView webView = mActivity.getWebView(0);
+        GVRView webView = mActivity.getWebView(2);
         webViewObject = createWebViewObject(mGVRContext, 25f, 25f, webView);
         webViewObject.getTransform().setPosition( -23f, 19f, -15f );
         webViewObject.getTransform().setRotationByAxis( angle,  0.0f, 1.0f, 0.0f );
+
+        webViewObject.getRenderData().getMaterial().setOpacity( 0.6f );
+        webViewObject.getRenderData().setDepthTest(false);
+        webViewObject.getRenderData().setRenderingOrder(GVRRenderData.GVRRenderingOrder.TRANSPARENT);
+
         scene.addSceneObject(webViewObject);
 
         Log.v("", "addWebView");
 
         GVRView webView2 = mActivity.getWebView(1);
         webViewObject2 = createWebViewObject(mGVRContext, 25f, 25f, webView2);
-        webViewObject2.getTransform().setPosition( 23f, 19f, -15f );
-        webViewObject2.getTransform().setRotationByAxis( -angle,  0.0f, 1.0f, 0.0f );
+        webViewObject2.getTransform().setPosition( 30f, 19f, 24f );
+        webViewObject2.getTransform().setRotationByAxis( -90,  0.0f, 1.0f, 0.0f );
         scene.addSceneObject(webViewObject2);
 
-        GVRView webView3 = mActivity.getWebView(2);
+        GVRView webView3 = mActivity.getWebView(0);
         webViewObject3 = createWebViewObject(mGVRContext, 25f, 25f, webView3);
-        webViewObject3.getTransform().setPosition( -40f, 25f, 7f );
+        webViewObject3.getTransform().setPosition( -40f, 25f, 25f );
         webViewObject3.getTransform().setRotationByAxis( 90,  0.0f, 1.0f, 0.0f );
         scene.addSceneObject(webViewObject3);
 
