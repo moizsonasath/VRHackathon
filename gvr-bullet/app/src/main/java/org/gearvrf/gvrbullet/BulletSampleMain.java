@@ -171,10 +171,13 @@ public class BulletSampleMain extends GVRMain {
                             rigidBodiesSceneMap.get(body).getTransform().rotateByAxis(value, 0.0f, 1.0f, 0.0f);
                             count++;
                             totalScore++;
+
+                            AudioClip.getInstance(mGVRContext.getContext()).playSound(AudioClip.bowlingPinsHitSoundID(),1,1);
                             if (count == 10)
                                 scoreDisplayObject.setText("STRIKE!!!\n Total Score:" + totalScore +"\n\n Back Key to Play Again");
                             else
                                 scoreDisplayObject.setText("SCORE:" + count + "\nTotal Score:" + totalScore +"\n\n Back Key to Play Again");
+
                         }
                     }
                 }
