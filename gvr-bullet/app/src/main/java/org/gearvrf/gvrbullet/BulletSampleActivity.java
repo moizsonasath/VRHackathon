@@ -26,9 +26,10 @@ public class BulletSampleActivity extends GVRActivity implements
     private VRTouchPadGestureDetector mDetector = null;
 
     // webview
-    private MyGVRWebView[] webViews = new MyGVRWebView[2];
+    private MyGVRWebView[] webViews = new MyGVRWebView[3];
     String url = "https://soundcloud.com/dude-lebowski-1/bowling";
     String url2 = "https://twitter.com/SamsungMobile";
+    String url3 = "http://dev.quasi.co/live";
 
 
     @Override
@@ -40,6 +41,7 @@ public class BulletSampleActivity extends GVRActivity implements
 
         webViews[0] = createWebView(url);
         webViews[1] = createWebView(url2);
+        webViews[2] = createWebView(url3);
 
         setMain(viewManager, "gvr.xml");
     }
@@ -113,7 +115,7 @@ public class BulletSampleActivity extends GVRActivity implements
         Log.v("", "onSingleTap");
         if (System.currentTimeMillis() > mLatestTap + TAP_INTERVAL) {
             mLatestTap = System.currentTimeMillis();
-            //viewManager.onTap();
+            viewManager.onRealTap();
         }
         return false;
     }
