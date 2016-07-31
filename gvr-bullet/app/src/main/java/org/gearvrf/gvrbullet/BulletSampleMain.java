@@ -94,6 +94,7 @@ public class BulletSampleMain extends GVRMain {
     float delta = 2.0f;
     boolean cameraChanged = false;
     boolean audioPlayed = false;
+    boolean clapPlayed = false;
     int left;
     int right;
     StaticPlaneShape floorShape, wallShape, sidewallShape1, sidewallShape2;
@@ -209,9 +210,10 @@ public class BulletSampleMain extends GVRMain {
 
                             if (count == 10) {
                                 scoreDisplayObject.setText("STRIKE!!!\n Total Score:" + totalScore +"\n\n Back Key to Play Again");
-                                if (!audioPlayed) {
-                                    AudioClip.getInstance(mGVRContext.getContext()).playSound(AudioClip.bowlingPinsHitSoundID(),10,10);
+                                if (!audioPlayed || !clapPlayed) {
+                                    AudioClip.getInstance(mGVRContext.getContext()).playSound(AudioClip.clapSoundID(),10,10);
                                     audioPlayed = true;
+                                    clapPlayed = true;
                                 }
                             }
                             else {
@@ -420,6 +422,7 @@ public class BulletSampleMain extends GVRMain {
         mainCameraRig.getTransform().setPosition(0.0f, 15.0f, 15.0f);
         cameraChanged = false;
         audioPlayed = false;
+        clapPlayed = false;
 
         mBullet = new Bullet();
         /*
