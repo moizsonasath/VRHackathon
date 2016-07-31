@@ -302,7 +302,7 @@ public class BulletSampleMain extends GVRMain {
 
 
     public void onSwipe(float speed) {
-        if(!applyForce) {
+        if (!applyForce) {
             if (Math.abs(speed) >= 4000)
                 this.speed = 40;
             if (Math.abs(speed) >= 3000)
@@ -321,13 +321,13 @@ public class BulletSampleMain extends GVRMain {
                     sphereObjectFake.getTransform().getPositionY(),
                     sphereObjectFake.getTransform().getPositionZ(), SPHERE_MASS);
 
-        if (cameraDisplayed) {
-            mCameraObject.getRenderData().getMaterial().setOpacity( 0.0f );
-            cameraDisplayed = false;
+            if (cameraDisplayed) {
+                mCameraObject.getRenderData().getMaterial().setOpacity(0.0f);
+                cameraDisplayed = false;
+            }
+
         }
-
     }
-
     public void onSwipe2(int dir) {
         if (dir > 0) {
             togglePassthroughCamera(false);
