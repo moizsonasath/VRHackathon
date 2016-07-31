@@ -2,14 +2,20 @@ package org.gearvrf.gvrbullet;
 
 
 import org.gearvrf.GVRActivity;
+import org.gearvrf.scene_objects.view.GVRView;
 import org.gearvrf.utility.Log;
 import org.gearvrf.gvrbullet.VRTouchPadGestureDetector;
 import org.gearvrf.gvrbullet.VRTouchPadGestureDetector.OnTouchPadGestureListener;
 import org.gearvrf.gvrbullet.VRTouchPadGestureDetector.SwipeDirection;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class BulletSampleActivity extends GVRActivity implements
         OnTouchPadGestureListener {
@@ -19,14 +25,68 @@ public class BulletSampleActivity extends GVRActivity implements
     private static final int TAP_INTERVAL = 300;
     private VRTouchPadGestureDetector mDetector = null;
 
+    // webview
+    private MyGVRWebView[] webViews = new MyGVRWebView[2];
+    String url = "https://soundcloud.com/dude-lebowski-1/bowling";
+    String url2 = "https://twitter.com/SamsungMobile";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewManager = new BulletSampleMain();
+        viewManager = new BulletSampleMain(this);
         mDetector = new VRTouchPadGestureDetector(this);
+
+
+        webViews[0] = createWebView(url);
+        webViews[1] = createWebView(url2);
+
         setMain(viewManager, "gvr.xml");
     }
-/*
+
+    private MyGVRWebView createWebView(String _url) {
+        MyGVRWebView webView = new MyGVRWebView(this);
+
+        webView.setInitialScale(300);
+        int w = 10, h = 10;
+        webView.measure(w, h);
+        webView.layout(0, 0, w, h);
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowContentAccess(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
+        webSettings.setGeolocationEnabled(true);
+
+        webSettings.setMediaPlaybackRequiresUserGesture(false);
+        webSettings.setNeedInitialFocus(false);
+
+        webView.loadUrl( _url );
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+
+        /*webView.setWebChromeClient(new WebChromeClient() {
+
+        });*/
+
+        webView.addJavascriptInterface(new WebAppInterface(this), "APP");
+
+        return webView;
+    }
+
+    public GVRView getWebView(int i) {
+        return webViews[i];
+    }
+
+
+    /*
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
@@ -102,4 +162,18 @@ public class BulletSampleActivity extends GVRActivity implements
                 return super.dispatchKeyEvent(event);
         }
     }
+
+    class WebAppInterface {
+        Context mContext;
+
+        WebAppInterface(Context c) {
+            mContext = c;
+        }
+
+        @JavascriptInterface
+        public void changeTurn(String turn) {
+
+        }
+    }
+
 }

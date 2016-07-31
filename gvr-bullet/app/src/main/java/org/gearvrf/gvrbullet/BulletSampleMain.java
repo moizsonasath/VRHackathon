@@ -19,6 +19,8 @@ import org.gearvrf.animation.GVRAnimationEngine;
 import org.gearvrf.animation.GVROpacityAnimation;
 import org.gearvrf.scene_objects.GVRCameraSceneObject;
 
+import org.gearvrf.scene_objects.GVRViewSceneObject;
+import org.gearvrf.scene_objects.view.GVRView;
 import org.gearvrf.utility.Log;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -89,6 +91,15 @@ public class BulletSampleMain extends GVRMain {
 
     private GVRCameraRig mRig;
     private GVRSceneObject mHeadContainer;
+
+    // webview stuff
+    public GVRViewSceneObject webViewObject;
+    public GVRViewSceneObject webViewObject2;
+
+    BulletSampleActivity mActivity;
+    BulletSampleMain(BulletSampleActivity activity) {
+        mActivity = activity;
+    }
 
 
     @Override
@@ -266,6 +277,18 @@ public class BulletSampleMain extends GVRMain {
         scene.addSceneObject(sphereObjectFake);
     }
 
+
+    private GVRViewSceneObject createWebViewObject(GVRContext gvrContext, float w, float h, GVRView webView) {
+        //GVRView webView = mActivity.getWebView();
+        GVRViewSceneObject webObject = new GVRViewSceneObject(gvrContext,
+                webView, w, h);
+        //webObject.setName("web view object");
+        webObject.getRenderData().getMaterial().setOpacity(1.0f);
+
+        return webObject;
+    }
+
+
     public void onSwipe(float speed) {
         if (Math.abs(speed) >= 4000)
             this.speed = 50;
@@ -412,6 +435,31 @@ public class BulletSampleMain extends GVRMain {
         mHeadContainer = new GVRSceneObject(mGVRContext);
         mRig.addChildObject(mHeadContainer);
         addCamera(mHeadContainer);
+
+        Log.v("", "addWeb pre");
+        addWebViews();
+    }
+
+    public void addWebViews() {
+        float angle = 45f;
+
+
+        GVRView webView = mActivity.getWebView(0);
+
+
+        webViewObject = createWebViewObject(mGVRContext, 15f, 15f, webView);
+        webViewObject.getTransform().setPosition( -12f, 15.0f, -2.5f );
+        webViewObject.getTransform().setRotationByAxis( angle,  0.0f, 1.0f, 0.0f );
+        scene.addSceneObject(webViewObject);
+
+        Log.v("", "addWebView");
+
+        GVRView webView2 = mActivity.getWebView(1);
+        webViewObject2 = createWebViewObject(mGVRContext, 15f, 15f, webView2);
+        webViewObject2.getTransform().setPosition( 12f, 15f, -2.5f );
+        webViewObject2.getTransform().setRotationByAxis( -angle,  0.0f, 1.0f, 0.0f );
+        scene.addSceneObject(webViewObject2);
+
     }
 
     public void moveLeft() {
