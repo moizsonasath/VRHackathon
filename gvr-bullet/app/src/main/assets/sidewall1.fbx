@@ -10,11 +10,11 @@ FBXHeaderExtension:  {
 		Version: 1000
 		Year: 2016
 		Month: 7
-		Day: 30
-		Hour: 15
-		Minute: 54
-		Second: 13
-		Millisecond: 25
+		Day: 31
+		Hour: 1
+		Minute: 11
+		Second: 37
+		Millisecond: 218
 	}
 	Creator: "FBX SDK/FBX Plugins version 2015.1"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -36,13 +36,13 @@ FBXHeaderExtension:  {
 			P: "Original|ApplicationVendor", "KString", "", "", "The Foundry"
 			P: "Original|ApplicationName", "KString", "", "", "MODO"
 			P: "Original|ApplicationVersion", "KString", "", "", ""
-			P: "Original|DateTime_GMT", "DateTime", "", "", "30/07/2016 22:54:13.025"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "31/07/2016 08:11:37.218"
 			P: "Original|FileName", "KString", "", "", "C:\hackathon\bowling\lane_export.lxo"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "The Foundry"
 			P: "LastSaved|ApplicationName", "KString", "", "", "MODO"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", ""
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "30/07/2016 22:54:13.025"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "31/07/2016 08:11:37.218"
 		}
 	}
 }
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 1713684592, "", "Scene" {
+	Document: 1899527808, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -97,7 +97,7 @@ References:  {
 
 Definitions:  {
 	Version: 100
-	Count: 19
+	Count: 21
 	ObjectType: "GlobalSettings" {
 		Count: 1
 	}
@@ -221,6 +221,29 @@ Definitions:  {
 			}
 		}
 	}
+	ObjectType: "Texture" {
+		Count: 1
+		PropertyTemplate: "FbxFileTexture" {
+			Properties70:  {
+				P: "TextureTypeUse", "enum", "", "",0
+				P: "Texture alpha", "Number", "", "A",1
+				P: "CurrentMappingType", "enum", "", "",0
+				P: "WrapModeU", "enum", "", "",0
+				P: "WrapModeV", "enum", "", "",0
+				P: "UVSwap", "bool", "", "",0
+				P: "PremultiplyAlpha", "bool", "", "",1
+				P: "Translation", "Vector", "", "A",0,0,0
+				P: "Rotation", "Vector", "", "A",0,0,0
+				P: "Scaling", "Vector", "", "A",1,1,1
+				P: "TextureRotationPivot", "Vector3D", "Vector", "",0,0,0
+				P: "TextureScalingPivot", "Vector3D", "Vector", "",0,0,0
+				P: "CurrentTextureBlendMode", "enum", "", "",1
+				P: "UVSet", "KString", "", "", "default"
+				P: "UseMaterial", "bool", "", "",0
+				P: "UseMipMap", "bool", "", "",0
+			}
+		}
+	}
 	ObjectType: "AnimationStack" {
 		Count: 1
 		PropertyTemplate: "FbxAnimStack" {
@@ -260,13 +283,35 @@ Definitions:  {
 	ObjectType: "AnimationCurve" {
 		Count: 9
 	}
+	ObjectType: "Video" {
+		Count: 1
+		PropertyTemplate: "FbxVideo" {
+			Properties70:  {
+				P: "ImageSequence", "bool", "", "",0
+				P: "ImageSequenceOffset", "int", "Integer", "",0
+				P: "FrameRate", "double", "Number", "",0
+				P: "LastFrame", "int", "Integer", "",0
+				P: "Width", "int", "Integer", "",0
+				P: "Height", "int", "Integer", "",0
+				P: "Path", "KString", "XRefUrl", "", ""
+				P: "StartFrame", "int", "Integer", "",0
+				P: "StopFrame", "int", "Integer", "",0
+				P: "PlaySpeed", "double", "Number", "",0
+				P: "Offset", "KTime", "Time", "",0
+				P: "InterlaceMode", "enum", "", "",0
+				P: "FreeRunning", "bool", "", "",0
+				P: "Loop", "bool", "", "",0
+				P: "AccessMode", "enum", "", "",0
+			}
+		}
+	}
 }
 
 ; Object properties
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 1862367856, "Geometry::", "Mesh" {
+	Geometry: 1890331264, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "PolygonPartNames", "stringlist", "", "U",0, "Default"
 		}
@@ -300,11 +345,11 @@ Objects:  {
 			Name: "Texture"
 			MappingInformationType: "ByPolygonVertex"
 			ReferenceInformationType: "IndexToDirect"
-			UV: *32 {
-				a: 1,0,0,1,0,1,1,1,1,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,1
+			UV: *40 {
+				a: 0.880425214767456,0.664543867111206,0.773439049720764,0.57018369436264,0.890857934951782,0.533635079860687,0.880425214767456,0.533635079860687,0.876490116119385,0.664543867111206,0.774417042732239,0.565634906291962,0.890857934951782,0.00999999977648258,0.773439049720764,0.579194009304047,0.880425214767456,0.00999999977648258,0.770846247673035,0.579194009304047,0.876490116119385,0.533635079860687,0.890857934951782,0.664543867111206,0.770846247673035,0.57018369436264,0.876490116119385,0.00999999977648258,0.76986825466156,0.574645221233368,0.894793093204498,0.533635079860687,0.774417042732239,0.574645221233368,0.894793093204498,0.00999999977648258,0.894793093204498,0.664543867111206,0.76986825466156,0.565634906291962
 			} 
 			UVIndex: *48 {
-				a: 10,7,8,7,3,8,9,4,2,4,12,2,1,5,2,5,9,2,13,15,4,15,12,4,15,1,12,1,2,12,6,11,8,11,10,8,11,0,10,0,7,10,0,14,7,14,3,7
+				a: 8,6,3,6,2,3,3,2,0,2,11,0,4,10,0,10,3,0,15,18,2,18,11,2,19,5,12,5,1,12,10,13,3,13,8,3,14,16,9,16,7,9,17,15,6,15,2,6
 			} 
 		}
 		LayerElementMaterial: 0 {
@@ -332,7 +377,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 2154377008, "Model::sidewall1", "Mesh" {
+	Model: 2263564096, "Model::sidewall1 (2)", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
@@ -341,7 +386,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Model: 2154385008, "Model::MODO_RenderSettings", "Null" {
+	Model: 2263556096, "Model::MODO_RenderSettings", "Null" {
 		Version: 232
 		Properties70:  {
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
@@ -353,57 +398,83 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Material: 1999177744, "Material::side", "" {
+	Material: 1076237632, "Material::Bake2", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
 		Properties70:  {
 			P: "EmissiveColor", "Color", "", "A",1,1,1
 			P: "EmissiveFactor", "Number", "", "A",0
-			P: "DiffuseColor", "Color", "", "A",1,1,1
+			P: "DiffuseColor", "Color", "", "A",0.6,0.6,0.6
 			P: "SpecularColor", "Color", "", "A",1,1,1
-			P: "SpecularFactor", "Number", "", "A",0.04
+			P: "SpecularFactor", "Number", "", "A",0
 			P: "ShininessExponent", "Number", "", "A",256
 			P: "ReflectionColor", "Color", "", "A",1,1,1
 			P: "ReflectionFactor", "Number", "", "A",0
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
 			P: "Ambient", "Vector3D", "Vector", "",0.2,0.2,0.2
-			P: "Diffuse", "Vector3D", "Vector", "",1,1,1
-			P: "Specular", "Vector3D", "Vector", "",0.04,0.04,0.04
+			P: "Diffuse", "Vector3D", "Vector", "",0.6,0.6,0.6
+			P: "Specular", "Vector3D", "Vector", "",0,0,0
 			P: "Shininess", "double", "Number", "",256
 			P: "Opacity", "double", "Number", "",1
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	AnimationStack: 2101121440, "AnimStack::Take 001", "" {
+	Video: 542352288, "Video::bake2 (Image)", "Clip" {
+		Type: "Clip"
+		Properties70:  {
+			P: "Path", "KString", "XRefUrl", "", "C:\hackathon\bowling\export\bake2.png"
+		}
+		UseMipMap: 0
+		Filename: "C:\hackathon\bowling\export\bake2.png"
+		RelativeFilename: "bake2.png"
+	}
+	Texture: 2265761712, "Texture::bake2 (Image)", "" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::bake2 (Image)"
+		Properties70:  {
+			P: "CurrentTextureBlendMode", "enum", "", "",4
+			P: "UVSet", "KString", "", "", "Texture"
+			P: "UseMaterial", "bool", "", "",1
+		}
+		Media: "Video::bake2 (Image)"
+		FileName: "C:\hackathon\bowling\export\bake2.png"
+		RelativeFilename: "bake2.png"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
+	}
+	AnimationStack: 998179200, "AnimStack::Take 001", "" {
 		Properties70:  {
 			P: "LocalStop", "KTime", "Time", "",230930790000
 		}
 	}
-	AnimationLayer: 945603248, "AnimLayer::Layer 001", "" {
+	AnimationLayer: 802207600, "AnimLayer::Layer 001", "" {
 	}
-	AnimationCurveNode: 2101121648, "AnimCurveNode::T", "" {
+	AnimationCurveNode: 998180448, "AnimCurveNode::T", "" {
 		Properties70:  {
 			P: "d|X", "Number", "", "A",0
 			P: "d|Y", "Number", "", "A",0
 			P: "d|Z", "Number", "", "A",0
 		}
 	}
-	AnimationCurveNode: 2101119360, "AnimCurveNode::R", "" {
+	AnimationCurveNode: 998176704, "AnimCurveNode::R", "" {
 		Properties70:  {
 			P: "d|X", "Number", "", "A",0
 			P: "d|Y", "Number", "", "A",0
 			P: "d|Z", "Number", "", "A",0
 		}
 	}
-	AnimationCurveNode: 2101120192, "AnimCurveNode::S", "" {
+	AnimationCurveNode: 998180656, "AnimCurveNode::S", "" {
 		Properties70:  {
 			P: "d|X", "Number", "", "A",1
 			P: "d|Y", "Number", "", "A",1
 			P: "d|Z", "Number", "", "A",1
 		}
 	}
-	AnimationCurve: 452041392, "AnimCurve::", "" {
+	AnimationCurve: 2592861248, "AnimCurve::", "" {
 		Default: 0
 		KeyVer: 4008
 		KeyTime: *121 {
@@ -424,7 +495,7 @@ Objects:  {
 			a: 121
 		} 
 	}
-	AnimationCurve: 452038352, "AnimCurve::", "" {
+	AnimationCurve: 2592859648, "AnimCurve::", "" {
 		Default: 0
 		KeyVer: 4008
 		KeyTime: *121 {
@@ -445,7 +516,7 @@ Objects:  {
 			a: 121
 		} 
 	}
-	AnimationCurve: 452040592, "AnimCurve::", "" {
+	AnimationCurve: 2592856768, "AnimCurve::", "" {
 		Default: 0
 		KeyVer: 4008
 		KeyTime: *121 {
@@ -466,7 +537,7 @@ Objects:  {
 			a: 121
 		} 
 	}
-	AnimationCurve: 452042832, "AnimCurve::", "" {
+	AnimationCurve: 2592863808, "AnimCurve::", "" {
 		Default: 0
 		KeyVer: 4008
 		KeyTime: *121 {
@@ -487,7 +558,7 @@ Objects:  {
 			a: 121
 		} 
 	}
-	AnimationCurve: 452038192, "AnimCurve::", "" {
+	AnimationCurve: 2592854848, "AnimCurve::", "" {
 		Default: 0
 		KeyVer: 4008
 		KeyTime: *121 {
@@ -508,7 +579,7 @@ Objects:  {
 			a: 121
 		} 
 	}
-	AnimationCurve: 452039632, "AnimCurve::", "" {
+	AnimationCurve: 2592859168, "AnimCurve::", "" {
 		Default: 0
 		KeyVer: 4008
 		KeyTime: *121 {
@@ -529,7 +600,7 @@ Objects:  {
 			a: 121
 		} 
 	}
-	AnimationCurve: 452038512, "AnimCurve::", "" {
+	AnimationCurve: 2592860768, "AnimCurve::", "" {
 		Default: 1
 		KeyVer: 4008
 		KeyTime: *121 {
@@ -550,7 +621,7 @@ Objects:  {
 			a: 121
 		} 
 	}
-	AnimationCurve: 452038672, "AnimCurve::", "" {
+	AnimationCurve: 2592859808, "AnimCurve::", "" {
 		Default: 1
 		KeyVer: 4008
 		KeyTime: *121 {
@@ -571,7 +642,7 @@ Objects:  {
 			a: 121
 		} 
 	}
-	AnimationCurve: 452040272, "AnimCurve::", "" {
+	AnimationCurve: 2592857088, "AnimCurve::", "" {
 		Default: 1
 		KeyVer: 4008
 		KeyTime: *121 {
@@ -599,62 +670,68 @@ Objects:  {
 
 Connections:  {
 	
-	;Model::sidewall1, Model::RootNode
-	C: "OO",2154377008,0
+	;Model::sidewall1 (2), Model::RootNode
+	C: "OO",2263564096,0
 	
-	;Geometry::, Model::sidewall1
-	C: "OO",1862367856,2154377008
+	;Geometry::, Model::sidewall1 (2)
+	C: "OO",1890331264,2263564096
 	
-	;Material::side, Model::sidewall1
-	C: "OO",1999177744,2154377008
+	;Material::Bake2, Model::sidewall1 (2)
+	C: "OO",1076237632,2263564096
 	
-	;AnimCurveNode::T, Model::sidewall1
-	C: "OP",2101121648,2154377008, "Lcl Translation"
+	;AnimCurveNode::T, Model::sidewall1 (2)
+	C: "OP",998180448,2263564096, "Lcl Translation"
 	
-	;AnimCurveNode::R, Model::sidewall1
-	C: "OP",2101119360,2154377008, "Lcl Rotation"
+	;AnimCurveNode::R, Model::sidewall1 (2)
+	C: "OP",998176704,2263564096, "Lcl Rotation"
 	
-	;AnimCurveNode::S, Model::sidewall1
-	C: "OP",2101120192,2154377008, "Lcl Scaling"
+	;AnimCurveNode::S, Model::sidewall1 (2)
+	C: "OP",998180656,2263564096, "Lcl Scaling"
+	
+	;Texture::bake2 (Image), Material::Bake2
+	C: "OP",2265761712,1076237632, "DiffuseColor"
+	
+	;Video::bake2 (Image), Texture::bake2 (Image)
+	C: "OO",542352288,2265761712
 	
 	;AnimLayer::Layer 001, AnimStack::Take 001
-	C: "OO",945603248,2101121440
+	C: "OO",802207600,998179200
 	
 	;AnimCurveNode::T, AnimLayer::Layer 001
-	C: "OO",2101121648,945603248
+	C: "OO",998180448,802207600
 	
 	;AnimCurveNode::R, AnimLayer::Layer 001
-	C: "OO",2101119360,945603248
+	C: "OO",998176704,802207600
 	
 	;AnimCurveNode::S, AnimLayer::Layer 001
-	C: "OO",2101120192,945603248
+	C: "OO",998180656,802207600
 	
 	;AnimCurve::, AnimCurveNode::T
-	C: "OP",452041392,2101121648, "d|X"
+	C: "OP",2592861248,998180448, "d|X"
 	
 	;AnimCurve::, AnimCurveNode::T
-	C: "OP",452038352,2101121648, "d|Y"
+	C: "OP",2592859648,998180448, "d|Y"
 	
 	;AnimCurve::, AnimCurveNode::T
-	C: "OP",452040592,2101121648, "d|Z"
+	C: "OP",2592856768,998180448, "d|Z"
 	
 	;AnimCurve::, AnimCurveNode::R
-	C: "OP",452042832,2101119360, "d|X"
+	C: "OP",2592863808,998176704, "d|X"
 	
 	;AnimCurve::, AnimCurveNode::R
-	C: "OP",452038192,2101119360, "d|Y"
+	C: "OP",2592854848,998176704, "d|Y"
 	
 	;AnimCurve::, AnimCurveNode::R
-	C: "OP",452039632,2101119360, "d|Z"
+	C: "OP",2592859168,998176704, "d|Z"
 	
 	;AnimCurve::, AnimCurveNode::S
-	C: "OP",452038512,2101120192, "d|X"
+	C: "OP",2592860768,998180656, "d|X"
 	
 	;AnimCurve::, AnimCurveNode::S
-	C: "OP",452038672,2101120192, "d|Y"
+	C: "OP",2592859808,998180656, "d|Y"
 	
 	;AnimCurve::, AnimCurveNode::S
-	C: "OP",452040272,2101120192, "d|Z"
+	C: "OP",2592857088,998180656, "d|Z"
 }
 ;Takes section
 ;----------------------------------------------------

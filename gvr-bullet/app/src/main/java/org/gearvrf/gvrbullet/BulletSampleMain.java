@@ -295,6 +295,7 @@ public class BulletSampleMain extends GVRMain {
 
 
     public void onSwipe(float speed) {
+
         if(!applyForce) {
             if (Math.abs(speed) >= 4500)
                 this.speed = 50;
@@ -326,9 +327,10 @@ public class BulletSampleMain extends GVRMain {
                 cameraDisplayed = false;
             }
 
+
+
         }
     }
-
     public void onSwipe2(int dir) {
         if (dir > 0) {
             togglePassthroughCamera(false);
