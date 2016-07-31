@@ -20,7 +20,8 @@ public class AudioClip {
     private SoundPool soundPool;
     private static int uiStrikeIn10SoundID;
     private static int bowlingPinsHitsSoundID;
-
+    private static int clapSoundID;
+    private static int ballRollingSoundID;
 
     public static synchronized AudioClip getInstance(Context androidContext) {
         if (instance == null) {
@@ -85,6 +86,8 @@ public class AudioClip {
     private void loadinSounds() {
         uiStrikeIn10SoundID = soundPool.load(context, R.raw.strike_in_10_pin_bowling_game, 1);
         bowlingPinsHitsSoundID = soundPool.load(context, R.raw.bowling_pins_being_hit, 1);
+        clapSoundID = soundPool.load(context, R.raw.clap, 1);
+        ballRollingSoundID = soundPool.load(context, R.raw.rolling, 1);
 
 
     }
@@ -96,5 +99,11 @@ public class AudioClip {
     public static int bowlingPinsHitSoundID() {
         return bowlingPinsHitsSoundID;
     }
+    public static int clapSoundID() {
+        return clapSoundID;
+    }
 
+    public static int ballRollingSoundID() {
+        return ballRollingSoundID;
+    }
    }
